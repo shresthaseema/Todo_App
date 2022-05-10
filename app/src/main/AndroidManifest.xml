@@ -10,7 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Todo_App">
         <activity
+            android:name=".AddTaskActivity"
+            android:label="ADD TASK"
+            android:parentActivityName=".MainActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.todo_app.MainActivity"/>
+        </activity>
+        <activity
             android:name=".MainActivity"
+            android:label="TODO APP"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,6 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
