@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton add_task_button;
@@ -43,7 +45,15 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Task task = new Task(data.getStringExtra(AddTaskActivity.EXTRA_REPLY));
+
+            Bundle bundle = data.getExtras();
+            String taskTitle = bundle.getString("TASK_TITLE");
+            String taskDescription = bundle.getString("TASK_DESCRIPTION");
+            String taskCategory = bundle.getString("TASK_CATEGORY");
+            String taskDate = bundle.getString("TASK_DATE");
+            String taskTime = bundle.getString("TASK_TIME");
+
+            Task task = new Task(taskTitle, taskDescription, taskCategory, "PENDING", taskTime, taskDate);
             taskViewModel.insert_task(task);
         }
         else {

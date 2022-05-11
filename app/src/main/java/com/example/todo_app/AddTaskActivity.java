@@ -25,6 +25,8 @@ import java.util.Locale;
 public class AddTaskActivity extends AppCompatActivity {
 
     private EditText task_title_editText;
+    private EditText task_description_editText;
+    private Spinner task_category_spinner;
     private EditText task_date_editText;
     private EditText task_time_editText;
     private DatePickerDialog.OnDateSetListener set_listener;
@@ -37,7 +39,7 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        Spinner task_category_spinner = findViewById(R.id.task_category);
+        task_category_spinner = findViewById(R.id.task_category);
         ArrayList<String> category_list = new ArrayList<>(Arrays.asList("--Select a category--", "Household", "Study", "Workout"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_category_list, category_list);
         task_category_spinner.setAdapter(adapter);
@@ -75,7 +77,7 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int selected_hour, int selected_minute) {
                 hour = selected_hour;
                 minute = selected_minute;
-                task_time_editText.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute ));
+                task_time_editText.setText(String.format(Locale.getDefault(), "%02d : %02d", hour, minute ));
             }
         };
 
@@ -90,6 +92,7 @@ public class AddTaskActivity extends AppCompatActivity {
         });
 
         task_title_editText = findViewById(R.id.task_title);
+        task_description_editText = findViewById(R.id.task_description);
 
         final Button add_task_btn = findViewById(R.id.add_task_button);
         add_task_btn.setOnClickListener(view -> {
@@ -98,8 +101,23 @@ public class AddTaskActivity extends AppCompatActivity {
                 setResult(RESULT_CANCELED, replyIntent);
             }
             else {
+                Bundle replyBundle = new Bundle();
                 String task_title = task_title_editText.getText().toString();
-                replyIntent.putExtra(EXTRA_REPLY, task_title);
+                replyBundle.putString("TASK_TITLE", task_title);
+
+                String task_description = task_description_editText.getText().toString();
+                replyBundle.putString("TASK_DESCRIPTION", task_description);
+
+                String task_category = task_category_spinner.getSelectedItem().toString();
+                replyBundle.putString("TASK_CATEGORY", task_category);
+
+                String task_date = task_date_editText.getText().toString();
+                replyBundle.putString("TASK_DATE", task_date);
+
+                String task_time = task_time_editText.getText().toString();
+                replyBundle.putString("TASK_TIME", task_time);
+
+                replyIntent.putExtras(replyBundle);
                 setResult(RESULT_OK, replyIntent);
             }
             finish();

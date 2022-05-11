@@ -21,7 +21,12 @@ public class TaskListAdapter extends ListAdapter<Task, TaskViewHolder> {
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task current = getItem(position);
-        holder.bind(current.getTodo_task());
+        holder.title(current.getTask_title());
+        holder.description(current.getTask_description());
+        holder.category(current.getTask_category());
+        holder.status(current.getTask_status());
+        holder.time(current.getTask_time());
+        holder.date(current.getTask_date());
     }
 
     static class TaskDiff extends DiffUtil.ItemCallback<Task> {
@@ -32,7 +37,7 @@ public class TaskListAdapter extends ListAdapter<Task, TaskViewHolder> {
 
         @Override
         public boolean areContentsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {
-            return oldItem.getTodo_task().equals(newItem.getTodo_task());
+            return oldItem.getTask_title().equals(newItem.getTask_title());
         }
     }
 }

@@ -9,6 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -41,9 +42,10 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
                 TaskDao taskDao = INSTANCE.taskDao();
                 taskDao.delete_all_tasks();
 
-                Task task = new Task("Emma");
+                Task task = new Task("Vegetables", "Go to market and buy fresh vegetables.", "Household", "PENDING", "8 : 30", "04/04/2022");
                 taskDao.insert_task(task);
-                task = new Task("Dipesh");
+
+                task = new Task("Fruits", "Go to market and buy fresh fruits.", "Household", "PENDING", "8 : 30", "14/04/2022");
                 taskDao.insert_task(task);
             });
         }
