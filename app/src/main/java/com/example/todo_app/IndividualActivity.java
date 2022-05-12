@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -149,15 +150,20 @@ public class IndividualActivity extends AppCompatActivity {
         });
 
         save_task_button.setOnClickListener(view -> {
-            Intent intent = new Intent(IndividualActivity.this, MainActivity.class);
-            TaskViewModel taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-            String taskTitle = task_title_editText.getText().toString();
-            String taskDescription = task_description_editText.getText().toString();
-            String taskCategory = task_category_spinner.getSelectedItem().toString();
-            String taskDate = task_date_editText.getText().toString();
-            String taskTime = task_time_editText.getText().toString();
-            taskViewModel.updateTask(currentTask, taskTitle, taskDescription, taskCategory, taskDate, taskTime);
-            startActivity(intent);
+            if (TextUtils.isEmpty(task_title_editText.getText()) || TextUtils.isEmpty(task_description_editText.getText()) || task_category_spinner.getSelectedItem().toString().equals("--Select a category--") || TextUtils.isEmpty(task_date_editText.getText()) || TextUtils.isEmpty(task_time_editText.getText())) {
+                Toast.makeText(this, "All Fields Required", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Intent intent = new Intent(IndividualActivity.this, MainActivity.class);
+                TaskViewModel taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+                String taskTitle = task_title_editText.getText().toString();
+                String taskDescription = task_description_editText.getText().toString();
+                String taskCategory = task_category_spinner.getSelectedItem().toString();
+                String taskDate = task_date_editText.getText().toString();
+                String taskTime = task_time_editText.getText().toString();
+                taskViewModel.updateTask(currentTask, taskTitle, taskDescription, taskCategory, taskDate, taskTime);
+                startActivity(intent);
+            }
         });
 
     }

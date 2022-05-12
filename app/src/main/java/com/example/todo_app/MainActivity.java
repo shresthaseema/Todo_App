@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
             Task task = new Task(taskTitle, taskDescription, taskCategory, "PENDING", taskTime, taskDate);
             taskViewModel.insert_task(task);
         }
-        else {
-            Toast.makeText(this, "Task title is empty", Toast.LENGTH_LONG).show();
-        }
+
     }
 }

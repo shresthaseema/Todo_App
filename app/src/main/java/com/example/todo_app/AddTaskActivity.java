@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,11 +97,12 @@ public class AddTaskActivity extends AppCompatActivity {
 
         final Button add_task_btn = findViewById(R.id.add_task_button);
         add_task_btn.setOnClickListener(view -> {
-            Intent replyIntent = new Intent();
-            if (TextUtils.isEmpty(task_title_editText.getText())) {
-                setResult(RESULT_CANCELED, replyIntent);
+
+            if (TextUtils.isEmpty(task_title_editText.getText()) || TextUtils.isEmpty(task_description_editText.getText()) || task_category_spinner.getSelectedItem().toString().equals("--Select a category--") || TextUtils.isEmpty(task_date_editText.getText()) || TextUtils.isEmpty(task_time_editText.getText())) {
+                Toast.makeText(this, "All Fields Required", Toast.LENGTH_LONG).show();
             }
             else {
+                Intent replyIntent = new Intent();
                 Bundle replyBundle = new Bundle();
                 String task_title = task_title_editText.getText().toString();
                 replyBundle.putString("TASK_TITLE", task_title);
@@ -119,8 +121,9 @@ public class AddTaskActivity extends AppCompatActivity {
 
                 replyIntent.putExtras(replyBundle);
                 setResult(RESULT_OK, replyIntent);
+                finish();
             }
-            finish();
+
         });
 
     }
