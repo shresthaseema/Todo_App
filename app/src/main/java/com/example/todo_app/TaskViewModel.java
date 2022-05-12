@@ -23,7 +23,18 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
     public void insert_task(Task task) {
-        taskRepository.insert_task(task);
+        taskRepository.insertTask(task);
     }
 
+    public void deleteTask(Task task) {
+        taskRepository.deleteTask(task);
+    }
+
+    public void updateTaskStatus(Task task) {
+        taskRepository.updateTaskStatus(task);
+    }
+
+    public void updateTask(Task task, String taskTitle, String taskDescription, String taskCategory, String taskDate, String taskTime) {
+        taskRepository.updateTask(task, taskTitle,taskDescription, taskCategory, taskDate, taskTime);
+    }
 }

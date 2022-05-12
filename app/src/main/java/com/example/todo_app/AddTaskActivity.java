@@ -40,7 +40,7 @@ public class AddTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
 
         task_category_spinner = findViewById(R.id.task_category);
-        ArrayList<String> category_list = new ArrayList<>(Arrays.asList("--Select a category--", "Household", "Study", "Workout"));
+        ArrayList<String> category_list = new ArrayList<>(Arrays.asList("--Select a category--", "Household", "Study", "Workout", "Work", "Reminders"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_category_list, category_list);
         task_category_spinner.setAdapter(adapter);
 

@@ -27,6 +27,7 @@ public class TaskListAdapter extends ListAdapter<Task, TaskViewHolder> {
         holder.status(current.getTask_status());
         holder.time(current.getTask_time());
         holder.date(current.getTask_date());
+        holder.setCurrentTask(current);
     }
 
     static class TaskDiff extends DiffUtil.ItemCallback<Task> {

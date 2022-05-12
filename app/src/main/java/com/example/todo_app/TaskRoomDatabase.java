@@ -42,7 +42,7 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
                 TaskDao taskDao = INSTANCE.taskDao();
                 taskDao.delete_all_tasks();
 
-                Task task = new Task("Vegetables", "Go to market and buy fresh vegetables.", "Household", "PENDING", "8 : 30", "04/04/2022");
+                Task task = new Task("Vegetables", "Go to market and buy fresh vegetables.", "Household", "PENDING", "4 : 30", "12/09/2022");
                 taskDao.insert_task(task);
 
                 task = new Task("Fruits", "Go to market and buy fresh fruits.", "Household", "PENDING", "8 : 30", "14/04/2022");

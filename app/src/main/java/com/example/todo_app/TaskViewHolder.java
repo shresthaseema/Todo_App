@@ -1,5 +1,7 @@
 package com.example.todo_app;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     private final TextView task_date_textview;
     private final TextView task_day_textview;
     private final TextView task_month_textview;
+    private Task currentTask;
 
 
     private TaskViewHolder(View itemView) {
@@ -34,24 +37,35 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         task_day_textview = itemView.findViewById(R.id.task_item_day);
         task_month_textview = itemView.findViewById(R.id.task_item_month);
 
+        task_title_textview.setOnClickListener(view -> {
+            Context context = itemView.getContext();
+            Intent intent = new Intent(context, IndividualActivity.class);
+            intent.putExtra("CURRENT_TASK", currentTask);
+            context.startActivity(intent);
+        });
+
     }
-    public void title (String text){
-        task_title_textview.setText(text);
+    public void title (String title){
+        task_title_textview.setText(title);
     }
 
-    public void description (String text) {
-        task_description_textview.setText(text);
+    public void description (String description) {
+        task_description_textview.setText(description);
     }
 
-    public void category (String text) {
-        task_category_textview.setText(text);
+    public void category (String category) {
+        task_category_textview.setText(category);
     }
-    public void status (String text) {
-        task_status_textview.setText(text);
+    public void status (String status) {
+        task_status_textview.setText(status);
+        if(status.equals("COMPLETED")) {
+            Context context = itemView.getContext();
+            task_status_textview.setTextColor(context.getResources().getColor(R.color.green_color));
+        }
     }
 
-    public void time (String text) {
-        task_time_textview.setText(text);
+    public void time (String time) {
+        task_time_textview.setText(time);
     }
 
     public void date (String date) {
@@ -68,6 +82,10 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCurrentTask(Task currentTask) {
+        this.currentTask = currentTask;
     }
 
     static TaskViewHolder create(ViewGroup parent) {

@@ -20,9 +20,30 @@ public class TaskRepository {
         return allTasks;
     }
 
-    void insert_task(Task task) {
+    void insertTask(Task task) {
         TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
             taskDao.insert_task(task);
+        });
+    }
+
+    void deleteTask(Task task) {
+        TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
+            int task_id = taskDao.getTaskId(task.getTask_title(), task.getTask_description(), task.getTask_category(), task.getTask_status(), task.getTask_date(), task.getTask_time());
+            taskDao.delete_task(task_id);
+        });
+    }
+
+    void updateTaskStatus(Task task) {
+        TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
+            int task_id = taskDao.getTaskId(task.getTask_title(), task.getTask_description(), task.getTask_category(), task.getTask_status(), task.getTask_date(), task.getTask_time());
+            taskDao.update_task_status("COMPLETED", task_id);
+        });
+    }
+
+    void updateTask(Task task, String taskTitle, String taskDescription, String taskCategory, String taskDate, String taskTime) {
+        TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
+            int task_id = taskDao.getTaskId(task.getTask_title(), task.getTask_description(), task.getTask_category(), task.getTask_status(), task.getTask_date(), task.getTask_time());
+            taskDao.update_task(task_id, taskTitle, taskDescription, taskCategory, taskDate, taskTime);
         });
     }
 }
