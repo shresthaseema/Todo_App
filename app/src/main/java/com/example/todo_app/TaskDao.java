@@ -27,6 +27,9 @@ public interface TaskDao {
     @Query("DELETE FROM TODO_TASK_TABLE")
     void delete_all_tasks();
 
+    @Query("DELETE FROM todo_task_table WHERE task_status = 'COMPLETED'")
+    void delete_completed_tasks();
+
     @Query("UPDATE todo_task_table SET task_status = :task_item_status WHERE task_id = :task_id")
     void update_task_status(String task_item_status, int task_id);
 

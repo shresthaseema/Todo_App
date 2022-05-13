@@ -33,6 +33,18 @@ public class TaskRepository {
         });
     }
 
+    void deleteCompletedTasks() {
+        TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
+            taskDao.delete_completed_tasks();
+        });
+    }
+
+    void deleteAllTasks() {
+        TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
+            taskDao.delete_all_tasks();
+        });
+    }
+
     void updateTaskStatus(Task task) {
         TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
             int task_id = taskDao.getTaskId(task.getTask_title(), task.getTask_description(), task.getTask_category(), task.getTask_status(), task.getTask_date(), task.getTask_time());

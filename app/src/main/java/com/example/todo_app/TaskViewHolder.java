@@ -58,9 +58,12 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     }
     public void status (String status) {
         task_status_textview.setText(status);
+        Context context = itemView.getContext();
         if(status.equals("COMPLETED")) {
-            Context context = itemView.getContext();
             task_status_textview.setTextColor(context.getResources().getColor(R.color.green_color));
+        }
+        else {
+            task_status_textview.setTextColor(context.getResources().getColor(R.color.red_color));
         }
     }
 

@@ -1,8 +1,10 @@
 package com.example.todo_app;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,22 +15,28 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Date;
+import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton add_task_button;
-    public static final int NEW_TASK_ACTIVITY_REQUEST_CODE = 1;
+    private FloatingActionButton menu_bar_button;
     private TaskViewModel taskViewModel;
-    private final TaskListAdapter taskListAdapter = new TaskListAdapter(new TaskListAdapter.TaskDiff());
     private RecyclerView recyclerView;
+    public static final int NEW_TASK_ACTIVITY_REQUEST_CODE = 1;
+    private final TaskListAdapter taskListAdapter = new TaskListAdapter(new TaskListAdapter.TaskDiff());
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         add_task_button.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
             startActivityForResult(intent, NEW_TASK_ACTIVITY_REQUEST_CODE );
+        });
+
+        menu_bar_button = findViewById(R.id.menu_bar_fab);
+        menu_bar_button.setOnClickListener(view -> {
+            getMenuDialog();
         });
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
@@ -79,10 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            LiveData<List<Task>> listLiveData = taskViewModel.getAllTasks();
+            List<Task> taskList = listLiveData.getValue();
+            Task task = taskList.get(viewHolder.getPosition());
+
             switch (direction) {
                 case ItemTouchHelper.LEFT:
-                    Task deletedTask = taskListAdapter.getCurrentTask();
-                    taskViewModel.deleteTask(taskListAdapter.getCurrentTask());
+                    Task deletedTask = task;
+                    taskViewModel.deleteTask(task);
                     Snackbar.make(recyclerView, "Task Deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -92,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     }).show();
                     break;
                 case ItemTouchHelper.RIGHT:
-                    taskViewModel.updateTaskStatus(taskListAdapter.getCurrentTask());
+                    taskViewModel.updateTaskStatus(task);
                     Toast.makeText(MainActivity.this, "Task Completed", Toast.LENGTH_SHORT).show();
                     break;
             }
@@ -114,4 +131,33 @@ public class MainActivity extends AppCompatActivity {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
+
+    public void getMenuDialog() {
+        alertDialogBuilder = new AlertDialog.Builder(this);
+        final View menuDialogView = getLayoutInflater().inflate(R.layout.menu_dialogbox, null);
+
+        Button button_cancel = menuDialogView.findViewById(R.id.cancel_button);
+        TextView delete_completed_textView = menuDialogView.findViewById(R.id.delete_completed);
+        TextView delete_all_textView = menuDialogView.findViewById(R.id.delete_all);
+
+        alertDialogBuilder.setView(menuDialogView);
+        alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+        button_cancel.setOnClickListener(view -> {
+            alertDialog.dismiss();
+        });
+
+        delete_completed_textView.setOnClickListener(view -> {
+            taskViewModel.deleteCompletedTasks();
+            alertDialog.dismiss();
+            Toast.makeText(this, "Deleted Completed Tasks", Toast.LENGTH_LONG).show();
+        });
+
+        delete_all_textView.setOnClickListener(view -> {
+            taskViewModel.deleteAllTasks();
+            alertDialog.dismiss();
+            Toast.makeText(this, "All Tasks Deleted", Toast.LENGTH_LONG).show();
+        });
+    }
 }
