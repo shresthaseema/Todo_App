@@ -11,11 +11,15 @@ public class TaskViewModel extends AndroidViewModel {
 
     private TaskRepository taskRepository;
     private final LiveData<List<Task>> allTasks;
+    private LiveData<List<Task>> pendingTasksCount;
+    private LiveData<List<Task>> completedTasksCount;
 
     public TaskViewModel (Application application) {
         super(application);
         taskRepository = new TaskRepository(application);
         allTasks = taskRepository.getAllTasks();
+        pendingTasksCount = taskRepository.getPendingTasksCount();
+        completedTasksCount = taskRepository.getCompletedTasksCount();
     }
 
     LiveData<List<Task>> getAllTasks() {
@@ -44,5 +48,13 @@ public class TaskViewModel extends AndroidViewModel {
 
     public void updateTask(Task task, String taskTitle, String taskDescription, String taskCategory, String taskDate, String taskTime) {
         taskRepository.updateTask(task, taskTitle,taskDescription, taskCategory, taskDate, taskTime);
+    }
+
+    public LiveData<List<Task>> getPendingTasksCount() {
+        return pendingTasksCount;
+    }
+
+    public LiveData<List<Task>> getCompletedTasksCount() {
+        return completedTasksCount;
     }
 }

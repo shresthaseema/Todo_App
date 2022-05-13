@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private final TaskListAdapter taskListAdapter = new TaskListAdapter(new TaskListAdapter.TaskDiff());
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
+    private TextView total_tasks, pending_tasks, completed_tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
 
         taskViewModel.getAllTasks().observe(this, tasks -> {
             taskListAdapter.submitList(tasks);
+            String totalTasksCount = String.valueOf(taskViewModel.getAllTasks().getValue().size());
+            total_tasks = findViewById(R.id.total_task_textview);
+            total_tasks.setText("Total: "+ totalTasksCount);
+
+        });
+
+        taskViewModel.getPendingTasksCount().observe(this, tasks -> {
+            String pendingTaskCount = String.valueOf(taskViewModel.getPendingTasksCount().getValue().size());
+            pending_tasks = findViewById(R.id.pending_task_textview);
+            pending_tasks.setText("Pending: " +pendingTaskCount);
+        });
+
+        taskViewModel.getCompletedTasksCount().observe(this, tasks -> {
+            String completedTaskCount = String.valueOf(taskViewModel.getCompletedTasksCount().getValue().size());
+            completed_tasks = findViewById(R.id.completed_task_textview);
+            completed_tasks.setText("Completed: " +completedTaskCount);
         });
 
         add_task_button = findViewById(R.id.add_task);
@@ -159,5 +176,6 @@ public class MainActivity extends AppCompatActivity {
             alertDialog.dismiss();
             Toast.makeText(this, "All Tasks Deleted", Toast.LENGTH_LONG).show();
         });
+
     }
 }

@@ -10,15 +10,21 @@ public class TaskRepository {
 
     private TaskDao taskDao;
     private LiveData<List<Task>> allTasks;
+    private LiveData<List<Task>> pendingTasksCount;
+    private LiveData<List<Task>> completedTasksCount;
 
     TaskRepository(Application application) {
         TaskRoomDatabase taskRoomDatabase = TaskRoomDatabase.getDatabase(application);
         taskDao = taskRoomDatabase.taskDao();
         allTasks = taskDao.getAllTasks();
+        pendingTasksCount = taskDao.pending_tasks_count();
+        completedTasksCount = taskDao.completed_tasks_count();
     }
     LiveData<List<Task>> getAllTasks(){
         return allTasks;
     }
+
+
 
     void insertTask(Task task) {
         TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
@@ -57,5 +63,13 @@ public class TaskRepository {
             int task_id = taskDao.getTaskId(task.getTask_title(), task.getTask_description(), task.getTask_category(), task.getTask_status(), task.getTask_date(), task.getTask_time());
             taskDao.update_task(task_id, taskTitle, taskDescription, taskCategory, taskDate, taskTime);
         });
+    }
+
+    public LiveData<List<Task>> getCompletedTasksCount() {
+        return completedTasksCount;
+    }
+
+    public LiveData<List<Task>> getPendingTasksCount() {
+        return pendingTasksCount;
     }
 }
