@@ -50,24 +50,54 @@ public class MainActivity extends AppCompatActivity {
 
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
+        total_tasks = findViewById(R.id.total_task_textview);
         taskViewModel.getAllTasks().observe(this, tasks -> {
             taskListAdapter.submitList(tasks);
             String totalTasksCount = String.valueOf(taskViewModel.getAllTasks().getValue().size());
-            total_tasks = findViewById(R.id.total_task_textview);
             total_tasks.setText("Total: "+ totalTasksCount);
+            total_tasks.setBackgroundColor(getResources().getColor(R.color.black));
 
         });
 
+        pending_tasks = findViewById(R.id.pending_task_textview);
         taskViewModel.getPendingTasksCount().observe(this, tasks -> {
             String pendingTaskCount = String.valueOf(taskViewModel.getPendingTasksCount().getValue().size());
-            pending_tasks = findViewById(R.id.pending_task_textview);
             pending_tasks.setText("Pending: " +pendingTaskCount);
+
         });
 
+        completed_tasks = findViewById(R.id.completed_task_textview);
         taskViewModel.getCompletedTasksCount().observe(this, tasks -> {
             String completedTaskCount = String.valueOf(taskViewModel.getCompletedTasksCount().getValue().size());
-            completed_tasks = findViewById(R.id.completed_task_textview);
             completed_tasks.setText("Completed: " +completedTaskCount);
+
+        });
+
+        total_tasks.setOnClickListener(view -> {
+            taskViewModel.getAllTasks().observe(this, tasks -> {
+                taskListAdapter.submitList(tasks);
+                });
+            total_tasks.setBackgroundColor(getResources().getColor(R.color.black));
+            pending_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+            completed_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+        });
+
+        pending_tasks.setOnClickListener(view -> {
+            taskViewModel.getPendingTasksCount().observe(this, tasks -> {
+                taskListAdapter.submitList(tasks);
+            });
+            pending_tasks.setBackgroundColor(getResources().getColor(R.color.black));
+            total_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+            completed_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+        });
+
+        completed_tasks.setOnClickListener(view -> {
+            taskViewModel.getCompletedTasksCount().observe(this, tasks -> {
+                taskListAdapter.submitList(tasks);
+            });
+            completed_tasks.setBackgroundColor(getResources().getColor(R.color.black));
+            total_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+            pending_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
         });
 
         add_task_button = findViewById(R.id.add_task);
