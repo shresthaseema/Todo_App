@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         taskViewModel.getAllTasks().observe(this, tasks -> {
             String totalTasksCount = String.valueOf(taskViewModel.getAllTasks().getValue().size());
             total_tasks.setText("Total: " + totalTasksCount);
-            total_tasks.setBackgroundColor(getResources().getColor(R.color.black));
+            total_tasks.setBackground(getResources().getDrawable(R.drawable.round_background2));
+
         });
 
         pending_tasks = findViewById(R.id.pending_task_textview);
@@ -78,9 +79,10 @@ public class MainActivity extends AppCompatActivity {
             taskViewModel.getAllTasks().observe(this, tasks -> {
                 taskListAdapter.submitList(tasks);
                 selectedTask = "Total";
-                total_tasks.setBackgroundColor(getResources().getColor(R.color.black));
-                pending_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
-                completed_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+                total_tasks.setBackground(getResources().getDrawable(R.drawable.round_background2));
+                pending_tasks.setBackground(getResources().getDrawable(R.drawable.round_background));
+                completed_tasks.setBackground(getResources().getDrawable(R.drawable.round_background));
+
             });
         });
 
@@ -88,9 +90,10 @@ public class MainActivity extends AppCompatActivity {
             taskViewModel.getPendingTasksCount().observe(this, tasks -> {
                 taskListAdapter.submitList(tasks);
                 selectedTask = "Pending";
-                pending_tasks.setBackgroundColor(getResources().getColor(R.color.black));
-                total_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
-                completed_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+                pending_tasks.setBackground(getResources().getDrawable(R.drawable.round_background2));
+                total_tasks.setBackground(getResources().getDrawable(R.drawable.round_background));
+                completed_tasks.setBackground(getResources().getDrawable(R.drawable.round_background));
+
             });
         });
 
@@ -98,9 +101,10 @@ public class MainActivity extends AppCompatActivity {
             taskViewModel.getCompletedTasksCount().observe(this, tasks -> {
                 taskListAdapter.submitList(tasks);
                 selectedTask = "Completed";
-                completed_tasks.setBackgroundColor(getResources().getColor(R.color.black));
-                total_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
-                pending_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+                completed_tasks.setBackground(getResources().getDrawable(R.drawable.round_background2));
+                pending_tasks.setBackground(getResources().getDrawable(R.drawable.round_background));
+                total_tasks.setBackground(getResources().getDrawable(R.drawable.round_background));
+
             });
 
         });
@@ -177,15 +181,19 @@ public class MainActivity extends AppCompatActivity {
 
             //Get the list of selected task category
             LiveData<List<Task>> listLiveData = null;
-            if (selectedTask == "Total") {
-                listLiveData = taskViewModel.getAllTasks();
-            } else if (selectedTask == "Pending") {
-                listLiveData = taskViewModel.getPendingTasksCount();
-            } else if (selectedTask == "Completed") {
-                listLiveData = taskViewModel.getCompletedTasksCount();
+            switch (selectedTask) {
+                case "Total":
+                    listLiveData = taskViewModel.getAllTasks();
+                    break;
+                case "Pending":
+                    listLiveData = taskViewModel.getPendingTasksCount();
+                    break;
+                case "Completed":
+                    listLiveData = taskViewModel.getCompletedTasksCount();
+                    break;
             }
 
-            //Deleted and completed the task by swiping left and right respectively using Snackbar
+            //Delete and complete the task by swiping left and right respectively using Snackbar
             List<Task> taskList = listLiveData.getValue();
             Task task = taskList.get(viewHolder.getPosition());
             switch (direction) {

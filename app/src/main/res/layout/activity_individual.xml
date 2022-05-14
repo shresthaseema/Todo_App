@@ -87,7 +87,7 @@
             android:fontFamily="casual"
             android:singleLine="false"
             android:text="Task Description"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ind_task_title" />
@@ -100,10 +100,10 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="28dp"
             android:background="@null"
+            android:focusable="false"
             android:fontFamily="casual"
             android:text="02/05/2020"
-            android:focusable="false"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintStart_toEndOf="@+id/ind_category2"
             app:layout_constraintTop_toBottomOf="@+id/ind_category_textview" />
 
@@ -148,7 +148,8 @@
             android:layout_marginTop="28dp"
             android:fontFamily="casual"
             android:text="Date: "
-            android:textSize="20sp"
+            android:textSize="22sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ind_category_textview" />
 
@@ -164,7 +165,7 @@
             android:fontFamily="casual"
             android:text="PENDING"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ind_task_date" />
 
@@ -196,7 +197,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="52dp"
             android:layout_marginEnd="140dp"
             android:layout_marginRight="140dp"
             app:layout_constraintEnd_toEndOf="parent"

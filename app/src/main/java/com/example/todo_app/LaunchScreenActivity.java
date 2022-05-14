@@ -16,7 +16,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_screen);
 
-        //Replaced constraint layout with Fragment
+        //Replaces constraint layout with Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.constraintLayoutId, new LaunchScreenFragment());
@@ -30,7 +30,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(LaunchScreenActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-        }, 4000);
+        }, 5000);
 
     }
 }

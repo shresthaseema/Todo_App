@@ -40,13 +40,13 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        //Implemented spinner to add items to category
+        //Implements spinner to add items to category
         task_category_spinner = findViewById(R.id.task_category);
         ArrayList<String> category_list = new ArrayList<>(Arrays.asList("--Select a category--", "Household", "Study", "Workout", "Work", "Reminders"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_category_list, category_list);
         task_category_spinner.setAdapter(adapter);
 
-        //Created a calender
+        //Creates a calender
         task_date_editText = findViewById(R.id.task_date);
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -65,7 +65,7 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
 
-        //Set the date on the given format
+        //Sets the date on the given format
         set_listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -75,7 +75,7 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         };
 
-        //Set a time in given format
+        //Sets a time in given format
         task_time_editText = findViewById(R.id.task_time);
 
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -104,7 +104,7 @@ public class AddTaskActivity extends AppCompatActivity {
         final Button add_task_btn = findViewById(R.id.add_task_button);
         add_task_btn.setOnClickListener(view -> {
 
-            //Validated all the task fields using intent bundle
+            //Validates all the task fields using intent bundle
             if (TextUtils.isEmpty(task_title_editText.getText()) || TextUtils.isEmpty(task_description_editText.getText()) || task_category_spinner.getSelectedItem().toString().equals("--Select a category--") || TextUtils.isEmpty(task_date_editText.getText()) || TextUtils.isEmpty(task_time_editText.getText())) {
                 Toast.makeText(this, "All Fields Required", Toast.LENGTH_LONG).show();
             } else {

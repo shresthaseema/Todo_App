@@ -19,7 +19,7 @@ public class TaskListAdapter extends ListAdapter<Task, TaskViewHolder> {
         return TaskViewHolder.create(parent);
     }
 
-    //Set task details to appropriate method of TaskViewHolder
+    //Sets task details to appropriate method of TaskViewHolder
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task currentTask = getItem(position);

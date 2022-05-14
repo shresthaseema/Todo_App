@@ -73,7 +73,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         task_time_textview.setText(time);
     }
 
-    //Formatted the date
+    //Formats the date
     public void date(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EE dd MM yyyy", Locale.US);
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
