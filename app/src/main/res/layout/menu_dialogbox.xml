@@ -6,17 +6,60 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <TextView
+        android:id="@+id/delete_completed5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="casual"
+        android:text="Dark Mode / Light Mode"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dark_mode_icon" />
+
+    <TextView
+        android:id="@+id/delete_completed4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="59dp"
+        android:layout_marginRight="59dp"
+        android:fontFamily="casual"
+        android:text="All Tasks"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_completed3" />
+
+    <TextView
+        android:id="@+id/delete_completed3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
+        android:fontFamily="casual"
+        android:text="Delete"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_all_icon" />
+
     <ImageView
-        android:id="@+id/delete_completed_icon2"
+        android:id="@+id/delete_all_icon"
         android:layout_width="62dp"
         android:layout_height="59dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
         android:background="@drawable/round_corners"
         android:padding="13dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_completed_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
         app:srcCompat="@drawable/ic_delete_all"
         app:tint="@color/white" />
 
@@ -38,8 +81,8 @@
         android:id="@+id/delete_completed_icon"
         android:layout_width="62dp"
         android:layout_height="59dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/round_corners"
         android:padding="13dp"
@@ -52,30 +95,29 @@
         android:id="@+id/delete_completed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="casual"
-        android:text="Delete Completed Tasks"
+        android:text="Delete"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/delete_completed_icon"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_completed_icon" />
 
     <TextView
-        android:id="@+id/delete_all"
+        android:id="@+id/delete_completed2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
         android:fontFamily="casual"
-        android:text="Delete All Tasks"
+        android:text="Completed Tasks"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/delete_completed_icon2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/delete_completed" />
 
     <View
@@ -92,7 +134,7 @@
         android:id="@+id/divider2"
         android:layout_width="380dp"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@color/secondary_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
@@ -113,7 +155,21 @@
         android:textSize="20sp"
         app:cornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_all" />
+        app:layout_constraintTop_toBottomOf="@+id/delete_completed5" />
+
+    <ImageView
+        android:id="@+id/dark_mode_icon"
+        android:layout_width="62dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/round_corners1"
+        android:padding="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_completed2"
+        app:srcCompat="@drawable/ic_dark_mode"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

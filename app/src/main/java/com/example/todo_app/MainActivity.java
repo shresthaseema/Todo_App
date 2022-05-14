@@ -3,6 +3,7 @@ package com.example.todo_app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,11 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
     private TextView total_tasks, pending_tasks, completed_tasks;
+    private Boolean isDarkMode;
+    private SharedPreferences.Editor sharedPreferencesEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +118,19 @@ public class MainActivity extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("AppSettingPrefs",0);
+        isDarkMode = sharedPreferences.getBoolean("NightMode", false);
+        sharedPreferencesEditor = sharedPreferences.edit();
+
+        if (isDarkMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
+
     public void onActivityResult (int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -184,8 +201,9 @@ public class MainActivity extends AppCompatActivity {
         final View menuDialogView = getLayoutInflater().inflate(R.layout.menu_dialogbox, null);
 
         Button button_cancel = menuDialogView.findViewById(R.id.cancel_button);
-        TextView delete_completed_textView = menuDialogView.findViewById(R.id.delete_completed);
-        TextView delete_all_textView = menuDialogView.findViewById(R.id.delete_all);
+
+        ImageView delete_completed_imageView= menuDialogView.findViewById(R.id.delete_completed_icon);
+        ImageView delete_all_imageView = menuDialogView.findViewById(R.id.delete_all_icon);
 
         alertDialogBuilder.setView(menuDialogView);
         alertDialog = alertDialogBuilder.create();
@@ -195,16 +213,33 @@ public class MainActivity extends AppCompatActivity {
             alertDialog.dismiss();
         });
 
-        delete_completed_textView.setOnClickListener(view -> {
+        delete_completed_imageView.setOnClickListener(view -> {
             taskViewModel.deleteCompletedTasks();
             alertDialog.dismiss();
             Toast.makeText(this, "Deleted Completed Tasks", Toast.LENGTH_LONG).show();
         });
 
-        delete_all_textView.setOnClickListener(view -> {
+        delete_all_imageView.setOnClickListener(view -> {
             taskViewModel.deleteAllTasks();
             alertDialog.dismiss();
             Toast.makeText(this, "All Tasks Deleted", Toast.LENGTH_LONG).show();
+        });
+
+        ImageView dark_mode_imageView = menuDialogView.findViewById(R.id.dark_mode_icon);
+        dark_mode_imageView.setOnClickListener(view -> {
+            if(isDarkMode){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                sharedPreferencesEditor.putBoolean("NightMode", false);
+                Toast.makeText(this, "Dark Mode Disabled", Toast.LENGTH_LONG).show();
+            } else
+            {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                sharedPreferencesEditor.putBoolean("NightMode", true);
+                Toast.makeText(this, "Dark Mode Enabled ", Toast.LENGTH_LONG).show();
+            }
+            sharedPreferencesEditor.apply();
+            alertDialog.dismiss();
+
         });
 
     }

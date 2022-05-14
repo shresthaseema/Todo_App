@@ -19,7 +19,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.constraintLayoutId, new LaunchScreenFragment());
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
 
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {

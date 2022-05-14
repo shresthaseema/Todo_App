@@ -10,5 +10,6 @@
     <color name="primary_color">#7964E3</color>
     <color name="secondary_color">#9D8AFB</color>
     <color name="green_color">#31B136</color>
+    <color name="gray_color">#808080</color>
     <color name="red_color">#E13E3E</color>
 </resources>
