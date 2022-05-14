@@ -8,8 +8,12 @@
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/drawable-anydpi/ic_delete_all.xml" value="0.1965" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/drawable-anydpi/ic_delete_completed.xml" value="0.1965" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/drawable-anydpi/ic_menu_bar.xml" value="0.1" />
+        <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/drawable/round_background.xml" value="0.2325" />
+        <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/drawable/round_background2.xml" value="0.179" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/drawable/round_corners.xml" value="0.1965" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/drawable/round_corners1.xml" value="0.2555" />
+        <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout-land/fragment_launch_screen.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout-land/recyclerview_task_item.xml" value="0.21164021164021163" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/activity_add_task.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/activity_individual.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/activity_launch_screen.xml" value="0.14764492753623187" />
@@ -17,7 +21,7 @@
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/fragment_launch_screen.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/individual_spinner_category.xml" value="0.11980749746707194" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/menu_dialogbox.xml" value="0.264" />
-        <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/recyclerview_task_item.xml" value="0.2" />
+        <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/recyclerview_task_item.xml" value="0.1" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/recyclerview_taskitems.xml" value="0.264" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/spinner_category.xml" value="0.12132725430597771" />
         <entry key="..\:/Users/Emma/Desktop/Semester 8/MAD/Assignment/Todo_App/app/src/main/res/layout/spinner_category_list.xml" value="0.11980749746707194" />
