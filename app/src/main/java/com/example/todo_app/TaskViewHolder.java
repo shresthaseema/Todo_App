@@ -37,6 +37,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         task_day_textview = itemView.findViewById(R.id.task_item_day);
         task_month_textview = itemView.findViewById(R.id.task_item_month);
 
+        //Single task view to edit, delete and complete the task
         task_title_textview.setOnClickListener(view -> {
             Context context = itemView.getContext();
             Intent intent = new Intent(context, IndividualActivity.class);
@@ -45,33 +46,35 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         });
 
     }
-    public void title (String title){
+
+    public void title(String title) {
         task_title_textview.setText(title);
     }
 
-    public void description (String description) {
+    public void description(String description) {
         task_description_textview.setText(description);
     }
 
-    public void category (String category) {
+    public void category(String category) {
         task_category_textview.setText(category);
     }
-    public void status (String status) {
+
+    public void status(String status) {
         task_status_textview.setText(status);
         Context context = itemView.getContext();
-        if(status.equals("COMPLETED")) {
+        if (status.equals("COMPLETED")) {
             task_status_textview.setTextColor(context.getResources().getColor(R.color.green_color));
-        }
-        else {
+        } else {
             task_status_textview.setTextColor(context.getResources().getColor(R.color.red_color));
         }
     }
 
-    public void time (String time) {
+    public void time(String time) {
         task_time_textview.setText(time);
     }
 
-    public void date (String date) {
+    //Formatted the date
+    public void date(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EE dd MM yyyy", Locale.US);
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         try {
@@ -81,8 +84,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
             task_day_textview.setText(splitDate[0]);
             task_date_textview.setText(splitDate[1]);
             task_month_textview.setText(splitDate[2]);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }

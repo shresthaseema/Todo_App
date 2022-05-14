@@ -40,17 +40,20 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        //Implemented spinner to add items to category
         task_category_spinner = findViewById(R.id.task_category);
         ArrayList<String> category_list = new ArrayList<>(Arrays.asList("--Select a category--", "Household", "Study", "Workout", "Work", "Reminders"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_category_list, category_list);
         task_category_spinner.setAdapter(adapter);
 
+        //Created a calender
         task_date_editText = findViewById(R.id.task_date);
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        //To display a calender
         task_date_editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,15 +65,17 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
 
+        //Set the date on the given format
         set_listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month +1;
-                String date = day + "/" + month + "/" +year;
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
                 task_date_editText.setText(date);
             }
         };
 
+        //Set a time in given format
         task_time_editText = findViewById(R.id.task_time);
 
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -78,10 +83,11 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int selected_hour, int selected_minute) {
                 hour = selected_hour;
                 minute = selected_minute;
-                task_time_editText.setText(String.format(Locale.getDefault(), "%02d : %02d", hour, minute ));
+                task_time_editText.setText(String.format(Locale.getDefault(), "%02d : %02d", hour, minute));
             }
         };
 
+        //To display a time clock
         task_time_editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,16 +98,16 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
 
+        //To add a new task
         task_title_editText = findViewById(R.id.task_title);
         task_description_editText = findViewById(R.id.task_description);
-
         final Button add_task_btn = findViewById(R.id.add_task_button);
         add_task_btn.setOnClickListener(view -> {
 
+            //Validated all the task fields using intent bundle
             if (TextUtils.isEmpty(task_title_editText.getText()) || TextUtils.isEmpty(task_description_editText.getText()) || task_category_spinner.getSelectedItem().toString().equals("--Select a category--") || TextUtils.isEmpty(task_date_editText.getText()) || TextUtils.isEmpty(task_time_editText.getText())) {
                 Toast.makeText(this, "All Fields Required", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 Intent replyIntent = new Intent();
                 Bundle replyBundle = new Bundle();
                 String task_title = task_title_editText.getText().toString();

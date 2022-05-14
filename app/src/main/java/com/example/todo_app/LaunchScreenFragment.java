@@ -23,7 +23,9 @@ public class LaunchScreenFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @NonNull Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstanceState) {
+
+        //Animated the components for launch screen
         LottieAnimationView lottieAnimationView = getView().findViewById(R.id.launch_id);
         lottieAnimationView.playAnimation();
         ImageView launch_background = getView().findViewById(R.id.launch_bg_id);

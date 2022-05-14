@@ -8,10 +8,10 @@ import java.util.List;
 
 public class TaskRepository {
 
-    private TaskDao taskDao;
-    private LiveData<List<Task>> allTasks;
-    private LiveData<List<Task>> pendingTasksCount;
-    private LiveData<List<Task>> completedTasksCount;
+    private final TaskDao taskDao;
+    private final LiveData<List<Task>> allTasks;
+    private final LiveData<List<Task>> pendingTasksCount;
+    private final LiveData<List<Task>> completedTasksCount;
 
     TaskRepository(Application application) {
         TaskRoomDatabase taskRoomDatabase = TaskRoomDatabase.getDatabase(application);
@@ -20,10 +20,10 @@ public class TaskRepository {
         pendingTasksCount = taskDao.pending_tasks_count();
         completedTasksCount = taskDao.completed_tasks_count();
     }
-    LiveData<List<Task>> getAllTasks(){
+
+    LiveData<List<Task>> getAllTasks() {
         return allTasks;
     }
-
 
 
     void insertTask(Task task) {
@@ -40,15 +40,11 @@ public class TaskRepository {
     }
 
     void deleteCompletedTasks() {
-        TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
-            taskDao.delete_completed_tasks();
-        });
+        TaskRoomDatabase.databaseWriteExecutor.execute(taskDao::delete_completed_tasks);
     }
 
     void deleteAllTasks() {
-        TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
-            taskDao.delete_all_tasks();
-        });
+        TaskRoomDatabase.databaseWriteExecutor.execute(taskDao::delete_all_tasks);
     }
 
     void updateTaskStatus(Task task) {

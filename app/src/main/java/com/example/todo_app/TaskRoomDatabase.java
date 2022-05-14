@@ -33,7 +33,7 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase database) {
             super.onCreate(database);
@@ -41,18 +41,6 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 TaskDao taskDao = INSTANCE.taskDao();
                 taskDao.delete_all_tasks();
-
-                Task task = new Task("Vegetables", "Go to market and buy fresh vegetables.", "Household", "PENDING", "4 : 30", "12/09/2022");
-                taskDao.insert_task(task);
-
-                task = new Task("Drink Water", "Go to market and buy fresh fruits.", "Household", "PENDING", "8 : 30", "14/04/2022");
-                taskDao.insert_task(task);
-
-                task = new Task("Play Basketball", "Go to market and buy fresh vegetables.", "Household", "PENDING", "4 : 30", "12/09/2022");
-                taskDao.insert_task(task);
-
-                task = new Task("Go to Library", "Go to market and buy fresh fruits.", "Study", "PENDING", "8 : 30", "14/04/2022");
-                taskDao.insert_task(task);
             });
         }
     };

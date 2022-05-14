@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter;
 
 public class TaskListAdapter extends ListAdapter<Task, TaskViewHolder> {
 
-    public TaskListAdapter (@NonNull DiffUtil.ItemCallback<Task> diffCallback) {
+    public TaskListAdapter(@NonNull DiffUtil.ItemCallback<Task> diffCallback) {
         super(diffCallback);
     }
 
@@ -19,6 +19,7 @@ public class TaskListAdapter extends ListAdapter<Task, TaskViewHolder> {
         return TaskViewHolder.create(parent);
     }
 
+    //Set task details to appropriate method of TaskViewHolder
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task currentTask = getItem(position);
@@ -31,6 +32,7 @@ public class TaskListAdapter extends ListAdapter<Task, TaskViewHolder> {
         holder.setCurrentTask(currentTask);
     }
 
+    //To check if the task is same
     static class TaskDiff extends DiffUtil.ItemCallback<Task> {
         @Override
         public boolean areItemsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {

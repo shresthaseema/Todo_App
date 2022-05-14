@@ -52,6 +52,7 @@ public class Task implements Serializable {
     public int getTask_id() {
         return this.task_id;
     }
+
     public void setTask_id(int task_id) {
         this.task_id = task_id;
     }

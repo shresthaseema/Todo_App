@@ -27,13 +27,9 @@ import java.util.Locale;
 
 public class IndividualActivity extends AppCompatActivity {
 
-    private Button delete_task_button;
-    private Button save_task_button;
-    private Button complete_task_button;
     private EditText task_title_editText;
     private EditText task_description_editText;
     private Spinner task_category_spinner;
-    private EditText task_status_editText;
     private EditText task_date_editText;
     private EditText task_time_editText;
     private DatePickerDialog.OnDateSetListener set_listener;
@@ -47,21 +43,23 @@ public class IndividualActivity extends AppCompatActivity {
 
         Task currentTask = (Task) getIntent().getSerializableExtra("CURRENT_TASK");
 
-        delete_task_button = findViewById(R.id.task_delete_button);
+        //To delete the current task
+        Button delete_task_button = findViewById(R.id.task_delete_button);
         delete_task_button.setOnClickListener(view -> {
-           Intent intent = new Intent(IndividualActivity.this, MainActivity.class);
-           TaskViewModel taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-           taskViewModel.deleteTask(currentTask);
-           startActivity(intent);
+            Intent intent = new Intent(IndividualActivity.this, MainActivity.class);
+            TaskViewModel taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+            taskViewModel.deleteTask(currentTask);
+            startActivity(intent);
         });
 
+        //To set update the edited task in respective input field
         task_title_editText = findViewById(R.id.ind_task_title);
         task_description_editText = findViewById(R.id.ind_task_description);
-        task_status_editText = findViewById(R.id.ind_task_status);
+        EditText task_status_editText = findViewById(R.id.ind_task_status);
         task_time_editText = findViewById(R.id.ind_task_time);
         task_date_editText = findViewById(R.id.ind_task_date);
-        complete_task_button = findViewById(R.id.task_complete_button);
-        save_task_button = findViewById(R.id.task_save_button);
+        Button complete_task_button = findViewById(R.id.task_complete_button);
+        Button save_task_button = findViewById(R.id.task_save_button);
         task_category_spinner = findViewById(R.id.ind_category_spinner);
         ArrayList<String> category_list = new ArrayList<>(Arrays.asList("--Select a category--", "Household", "Study", "Workout", "Work", "Reminders"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.individual_spinner_category, category_list);
@@ -70,7 +68,7 @@ public class IndividualActivity extends AppCompatActivity {
         task_title_editText.setText(currentTask.getTask_title());
         task_description_editText.setText(currentTask.getTask_description());
         task_status_editText.setText(currentTask.getTask_status());
-        if(currentTask.getTask_status().equals("COMPLETED")) {
+        if (currentTask.getTask_status().equals("COMPLETED")) {
             task_status_editText.setTextColor(getResources().getColor(R.color.green_color));
             complete_task_button.setVisibility(View.INVISIBLE);
         }
@@ -78,19 +76,16 @@ public class IndividualActivity extends AppCompatActivity {
         task_time_editText.setText(currentTask.getTask_time());
 
         int spinnerPosition = 0;
-        if(currentTask.getTask_category().equals("Household")) {
+
+        if (currentTask.getTask_category().equals("Household")) {
             spinnerPosition = 1;
-        }
-        else if (currentTask.getTask_category().equals("Study")) {
+        } else if (currentTask.getTask_category().equals("Study")) {
             spinnerPosition = 2;
-        }
-        else if (currentTask.getTask_category().equals("Workout")){
+        } else if (currentTask.getTask_category().equals("Workout")) {
             spinnerPosition = 3;
-        }
-        else if (currentTask.getTask_category().equals("Work")){
+        } else if (currentTask.getTask_category().equals("Work")) {
             spinnerPosition = 4;
-        }
-        else {
+        } else {
             spinnerPosition = 5;
         }
 
@@ -116,8 +111,8 @@ public class IndividualActivity extends AppCompatActivity {
         set_listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month +1;
-                String date = day + "/" + month + "/" +year;
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
                 task_date_editText.setText(date);
             }
         };
@@ -127,7 +122,7 @@ public class IndividualActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int selected_hour, int selected_minute) {
                 hour = selected_hour;
                 minute = selected_minute;
-                task_time_editText.setText(String.format(Locale.getDefault(), "%02d : %02d", hour, minute ));
+                task_time_editText.setText(String.format(Locale.getDefault(), "%02d : %02d", hour, minute));
             }
         };
 
@@ -141,7 +136,7 @@ public class IndividualActivity extends AppCompatActivity {
             }
         });
 
-
+        //To complete task
         complete_task_button.setOnClickListener(view -> {
             Intent intent = new Intent(IndividualActivity.this, MainActivity.class);
             TaskViewModel taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
@@ -149,11 +144,11 @@ public class IndividualActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        //To save the updated task by checking if the input field is empty
         save_task_button.setOnClickListener(view -> {
             if (TextUtils.isEmpty(task_title_editText.getText()) || TextUtils.isEmpty(task_description_editText.getText()) || task_category_spinner.getSelectedItem().toString().equals("--Select a category--") || TextUtils.isEmpty(task_date_editText.getText()) || TextUtils.isEmpty(task_time_editText.getText())) {
                 Toast.makeText(this, "All Fields Required", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 Intent intent = new Intent(IndividualActivity.this, MainActivity.class);
                 TaskViewModel taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
                 String taskTitle = task_title_editText.getText().toString();
