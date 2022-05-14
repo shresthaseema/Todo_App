@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView total_tasks, pending_tasks, completed_tasks;
     private Boolean isDarkMode;
     private SharedPreferences.Editor sharedPreferencesEditor;
+    private String selectedTask = "Total";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
         total_tasks = findViewById(R.id.total_task_textview);
         taskViewModel.getAllTasks().observe(this, tasks -> {
-            taskListAdapter.submitList(tasks);
             String totalTasksCount = String.valueOf(taskViewModel.getAllTasks().getValue().size());
             total_tasks.setText("Total: "+ totalTasksCount);
             total_tasks.setBackgroundColor(getResources().getColor(R.color.black));
 
+
         });
+
 
         pending_tasks = findViewById(R.id.pending_task_textview);
         taskViewModel.getPendingTasksCount().observe(this, tasks -> {
@@ -81,29 +83,49 @@ public class MainActivity extends AppCompatActivity {
         total_tasks.setOnClickListener(view -> {
             taskViewModel.getAllTasks().observe(this, tasks -> {
                 taskListAdapter.submitList(tasks);
+                selectedTask = "Total";
+                total_tasks.setBackgroundColor(getResources().getColor(R.color.black));
+                pending_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+                completed_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
                 });
-            total_tasks.setBackgroundColor(getResources().getColor(R.color.black));
-            pending_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
-            completed_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
         });
 
         pending_tasks.setOnClickListener(view -> {
             taskViewModel.getPendingTasksCount().observe(this, tasks -> {
                 taskListAdapter.submitList(tasks);
+                selectedTask = "Pending";
+                pending_tasks.setBackgroundColor(getResources().getColor(R.color.black));
+                total_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+                completed_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
             });
-            pending_tasks.setBackgroundColor(getResources().getColor(R.color.black));
-            total_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
-            completed_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
         });
 
         completed_tasks.setOnClickListener(view -> {
             taskViewModel.getCompletedTasksCount().observe(this, tasks -> {
                 taskListAdapter.submitList(tasks);
+                selectedTask = "Completed";
+                completed_tasks.setBackgroundColor(getResources().getColor(R.color.black));
+                total_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+                pending_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
             });
-            completed_tasks.setBackgroundColor(getResources().getColor(R.color.black));
-            total_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
-            pending_tasks.setBackgroundColor(getResources().getColor(R.color.primary_color));
+
         });
+
+        if (selectedTask == "Total") {
+            taskViewModel.getAllTasks().observe(this, tasks -> {
+                taskListAdapter.submitList(tasks);
+               });
+        }
+        else if (selectedTask == "Pending") {
+            taskViewModel.getPendingTasksCount().observe(this, tasks -> {
+                taskListAdapter.submitList(tasks);
+            });
+        }
+        else if (selectedTask == "Completed") {
+            taskViewModel.getCompletedTasksCount().observe(this, tasks -> {
+                taskListAdapter.submitList(tasks);
+            });
+        }
 
         add_task_button = findViewById(R.id.add_task);
         add_task_button.setOnClickListener(view -> {
@@ -156,7 +178,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            LiveData<List<Task>> listLiveData = taskViewModel.getAllTasks();
+            LiveData<List<Task>> listLiveData = null;
+            if(selectedTask == "Total") {
+                listLiveData = taskViewModel.getAllTasks();
+            }
+            else if (selectedTask == "Pending") {
+                listLiveData = taskViewModel.getPendingTasksCount();
+            }
+            else if (selectedTask == "Completed") {
+                listLiveData = taskViewModel.getCompletedTasksCount();
+            }
+
             List<Task> taskList = listLiveData.getValue();
             Task task = taskList.get(viewHolder.getPosition());
 
