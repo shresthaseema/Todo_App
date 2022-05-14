@@ -10,13 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Todo_App">
         <activity
+            android:name=".LaunchScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".IndividualActivity"
             android:exported="false"
             android:label="EDIT TASK"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.todo_app.MainActivity"/>
+                android:value="com.example.todo_app.MainActivity" />
         </activity>
         <activity
             android:name=".AddTaskActivity"
