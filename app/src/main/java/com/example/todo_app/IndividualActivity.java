@@ -50,6 +50,7 @@ public class IndividualActivity extends AppCompatActivity {
             TaskViewModel taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
             taskViewModel.deleteTask(currentTask);
             startActivity(intent);
+            Toast.makeText(IndividualActivity.this, "Task Deleted", Toast.LENGTH_LONG).show();
         });
 
         //To set update the edited task in respective input field
@@ -61,7 +62,7 @@ public class IndividualActivity extends AppCompatActivity {
         Button complete_task_button = findViewById(R.id.task_complete_button);
         Button save_task_button = findViewById(R.id.task_save_button);
         task_category_spinner = findViewById(R.id.ind_category_spinner);
-        ArrayList<String> category_list = new ArrayList<>(Arrays.asList("--Select a category--", "Household", "Study", "Workout", "Work", "Reminders"));
+        ArrayList<String> category_list = new ArrayList<>(Arrays.asList("--Select a category--", "Household", "Study", "Workout & Fitness", "Work & Travel", "Reminders"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.individual_spinner_category, category_list);
         task_category_spinner.setAdapter(adapter);
 
@@ -81,9 +82,9 @@ public class IndividualActivity extends AppCompatActivity {
             spinnerPosition = 1;
         } else if (currentTask.getTask_category().equals("Study")) {
             spinnerPosition = 2;
-        } else if (currentTask.getTask_category().equals("Workout")) {
+        } else if (currentTask.getTask_category().equals("Workout & Fitness")) {
             spinnerPosition = 3;
-        } else if (currentTask.getTask_category().equals("Work")) {
+        } else if (currentTask.getTask_category().equals("Work & Travel")) {
             spinnerPosition = 4;
         } else {
             spinnerPosition = 5;

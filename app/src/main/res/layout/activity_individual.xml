@@ -164,6 +164,7 @@
             android:background="@null"
             android:fontFamily="casual"
             android:text="PENDING"
+            android:focusable="false"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -198,8 +199,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="52dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ind_category_textview"
             app:layout_constraintTop_toBottomOf="@+id/ind_task_description" />

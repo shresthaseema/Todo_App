@@ -47,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Set recyclerView Adapter
+        //Sets recyclerView Adapter
         recyclerView = findViewById(R.id.textView_recyclerView);
         recyclerView.setAdapter(taskListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Set the total, pending and completed tasks
+        //Sets the total, pending and completed tasks
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         total_tasks = findViewById(R.id.total_task_textview);
         taskViewModel.getAllTasks().observe(this, tasks -> {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             completed_tasks.setText("Completed: " + completedTaskCount);
         });
 
-        //To display the selected list of task
+        //Displays the selected list of task
         total_tasks.setOnClickListener(view -> {
             taskViewModel.getAllTasks().observe(this, tasks -> {
                 taskListAdapter.submitList(tasks);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        //Display the task list category
+        //Displays the task list category
         switch (selectedTask) {
             case "Total":
                 taskViewModel.getAllTasks().observe(this, taskListAdapter::submitList);
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Added the new task
+    //Adds a new task
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //Decorated swipe action using RecyclerViewSwipeDecorator
+        //Decorates swipe action using RecyclerViewSwipeDecorator
         @Override
         public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //Added menu bar popup box containing actions
+    //Adds menu bar popup box containing actions
     public void getMenuDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         final View menuDialogView = getLayoutInflater().inflate(R.layout.menu_dialogbox, null);
@@ -247,26 +247,26 @@ public class MainActivity extends AppCompatActivity {
         alertDialog = alertDialogBuilder.create();
         alertDialog.show();
 
-        //Close the popup box
+        //Closes the popup box
         button_cancel.setOnClickListener(view -> {
             alertDialog.dismiss();
         });
 
-        //Delete completed tasks
+        //Deletes completed tasks
         delete_completed_imageView.setOnClickListener(view -> {
             taskViewModel.deleteCompletedTasks();
             alertDialog.dismiss();
             Toast.makeText(this, "Deleted Completed Tasks", Toast.LENGTH_LONG).show();
         });
 
-        //Delete all tasks
+        //Deletes all tasks
         delete_all_imageView.setOnClickListener(view -> {
             taskViewModel.deleteAllTasks();
             alertDialog.dismiss();
             Toast.makeText(this, "All Tasks Deleted", Toast.LENGTH_LONG).show();
         });
 
-        //Set the app theme mode
+        //Sets the app theme mode
         ImageView dark_mode_imageView = menuDialogView.findViewById(R.id.dark_mode_icon);
         dark_mode_imageView.setOnClickListener(view -> {
             if (isDarkMode) {
