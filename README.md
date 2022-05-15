@@ -152,7 +152,6 @@ Edit Task            |  Menu Option
   * Deleting Task
   * Changing the status of a task to completed
   * Validating the input fields 
-  * Landscape Variation 
 
  **2. Additional Features**
   * Application Icon
@@ -164,6 +163,7 @@ Edit Task            |  Menu Option
   * Deleting All Task
   * Undo with the help of Snackbar
   * Dark Mode / Light Mode Theme
+  * Landscape Variation 
   * Tablet Variation
 
 
